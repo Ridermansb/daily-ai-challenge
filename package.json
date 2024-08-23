@@ -25,6 +25,14 @@
     "prettier": "^3.3.3",
     "typescript": "^5"
   },
+  "author": "Riderman de Sousa Barbosa <ridermansb+sitehistory@gmail.com>",
+  "contributors": [
+    {
+      "name": "Riderman",
+      "email": "ridermansb@gmail.com",
+      "url": "https://ridermansb.dev/"
+    }
+  ],
   "engines": {
     "node": "20"
   }
