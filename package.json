@@ -13,9 +13,14 @@
     "prepare": "husky"
   },
   "dependencies": {
+    "@mantine/charts": "^7.12.1",
+    "@mantine/core": "^7.12.1",
+    "@mantine/hooks": "^7.12.1",
+    "@mantine/notifications": "^7.12.1",
     "next": "14.2.6",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "recharts": "^2.12.7"
   },
   "devDependencies": {
     "@types/node": "^20",
@@ -29,6 +34,9 @@
     "eslint-import-resolver-typescript": "^3.6.1",
     "eslint-plugin-prettier": "^5.2.1",
     "lint-staged": "^15.2.9",
+    "postcss": "^8.4.41",
+    "postcss-preset-mantine": "^1.17.0",
+    "postcss-simple-vars": "^7.0.1",
     "prettier": "^3.3.3",
     "typescript": "^5"
   },
