@@ -1,7 +1,5 @@
 import { AreaChart, AreaChartSeries } from "@mantine/charts";
-import { Text, Loader, Stack, Group } from "@mantine/core";
-import { useState } from "react";
-import { DatePickerInput, DatesRangeValue } from "@mantine/dates";
+import { Text, Loader } from "@mantine/core";
 import { useGetSubscriberEvents } from "../../hooks";
 
 type TAggregateSubscriberEvent = {
@@ -57,47 +55,29 @@ const series: AreaChartSeries[] = [
   { name: "clickThroughRate", label: "Click Through Rate", color: "indigo.8" },
 ];
 
-const NewsletterEngagementOverviewChart = ({ defaultDateRange }: { defaultDateRange: [Date, Date] }) => {
-  const [dateRangeValue, setDateRange] = useState<DatesRangeValue>(defaultDateRange);
-  const { data: subscriberEvents, isLoading } = useGetSubscriberEvents<TAggregateSubscriberEvent>(
-    [dateRangeValue[0], dateRangeValue[1]],
-    {
-      select(data) {
-        return aggregateSubscriberEvents(data);
-      },
+const NewsletterEngagementOverviewChart = () => {
+  const { data: subscriberEvents, isLoading } = useGetSubscriberEvents<TAggregateSubscriberEvent>({
+    select(data) {
+      return aggregateSubscriberEvents(data);
     },
-  );
+  });
 
   if (isLoading) {
     return <Loader color="blue" size="sm" type="bars" />;
   }
 
-  return (
-    <Stack align="stretch" justify="center" gap="md" px={20}>
-      <Group align="flex-end">
-        <DatePickerInput
-          type="range"
-          label="Filter by date"
-          required
-          value={dateRangeValue}
-          onChange={setDateRange}
-          maxDate={new Date()}
-        />
-      </Group>
-      {subscriberEvents ? (
-        <AreaChart
-          h={300}
-          withLegend
-          data={subscriberEvents}
-          dataKey="createdAt"
-          series={series}
-          yAxisLabel="Amount"
-          curveType="step"
-        />
-      ) : (
-        <Text c="dimmed">No Data Found</Text>
-      )}
-    </Stack>
+  return subscriberEvents ? (
+    <AreaChart
+      h={300}
+      withLegend
+      data={subscriberEvents}
+      dataKey="createdAt"
+      series={series}
+      yAxisLabel="Amount"
+      curveType="step"
+    />
+  ) : (
+    <Text c="dimmed">No Data Found</Text>
   );
 };
 

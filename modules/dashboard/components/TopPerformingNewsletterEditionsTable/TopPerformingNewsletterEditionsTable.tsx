@@ -1,6 +1,4 @@
-import { Text, Loader, Stack, Group, Table, NumberFormatter } from "@mantine/core";
-import { useState } from "react";
-import { DatePickerInput, DatesRangeValue } from "@mantine/dates";
+import { Text, Loader, Table, NumberFormatter } from "@mantine/core";
 import { useGetSubscriberEvents } from "../../hooks";
 
 type TAggregateSubscriberEvent = {
@@ -53,52 +51,34 @@ const TopPerformingNewsletterRow = ({ aggregatedEvent }: { aggregatedEvent: TAgg
   </Table.Tr>
 );
 
-const TopPerformingNewsletterEditionsTable = ({ defaultDateRange }: { defaultDateRange: [Date, Date] }) => {
-  const [dateRangeValue, setDateRange] = useState<DatesRangeValue>(defaultDateRange);
-  const { data: subscriberEvents, isLoading } = useGetSubscriberEvents<TAggregateSubscriberEvent>(
-    [dateRangeValue[0], dateRangeValue[1]],
-    {
-      select(data) {
-        return aggregateSubscriberEvents(data);
-      },
+const TopPerformingNewsletterEditionsTable = () => {
+  const { data: subscriberEvents, isLoading } = useGetSubscriberEvents<TAggregateSubscriberEvent>({
+    select(data) {
+      return aggregateSubscriberEvents(data);
     },
-  );
+  });
 
   if (isLoading) {
     return <Loader color="blue" size="sm" type="bars" />;
   }
 
-  return (
-    <Stack align="stretch" justify="center" gap="md" px={20}>
-      <Group align="flex-end">
-        <DatePickerInput
-          type="range"
-          label="Filter by date"
-          required
-          value={dateRangeValue}
-          onChange={setDateRange}
-          maxDate={new Date()}
-        />
-      </Group>
-      {subscriberEvents ? (
-        <Table>
-          <Table.Thead>
-            <Table.Tr>
-              <Table.Th>Subject</Table.Th>
-              <Table.Th>Open Rate</Table.Th>
-              <Table.Th>Click Through Rate</Table.Th>
-            </Table.Tr>
-          </Table.Thead>
-          <Table.Tbody>
-            {subscriberEvents.map((aggregateEvent) => (
-              <TopPerformingNewsletterRow key={aggregateEvent.subject} aggregatedEvent={aggregateEvent} />
-            ))}
-          </Table.Tbody>
-        </Table>
-      ) : (
-        <Text c="dimmed">No Data Found</Text>
-      )}
-    </Stack>
+  return subscriberEvents ? (
+    <Table>
+      <Table.Thead>
+        <Table.Tr>
+          <Table.Th>Subject</Table.Th>
+          <Table.Th>Open Rate</Table.Th>
+          <Table.Th>Click Through Rate</Table.Th>
+        </Table.Tr>
+      </Table.Thead>
+      <Table.Tbody>
+        {subscriberEvents.map((aggregateEvent) => (
+          <TopPerformingNewsletterRow key={aggregateEvent.subject} aggregatedEvent={aggregateEvent} />
+        ))}
+      </Table.Tbody>
+    </Table>
+  ) : (
+    <Text c="dimmed">No Data Found</Text>
   );
 };
 

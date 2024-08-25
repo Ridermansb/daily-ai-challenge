@@ -3,11 +3,11 @@
 import NewsletterEngagementOverviewChart from "@/modules/dashboard/components/NewsletterEngagementOverviewChart";
 import { Card, Title } from "@mantine/core";
 
-function NewsletterEngagementOverviewWidget({ defaultDateRange }: { defaultDateRange: [Date, Date] }) {
+function NewsletterEngagementOverviewWidget() {
   return (
-    <Card withBorder p="md" m="md">
+    <Card withBorder>
       <Title order={3}>Newsletter engagement overview</Title>
-      <NewsletterEngagementOverviewChart defaultDateRange={defaultDateRange} />
+      <NewsletterEngagementOverviewChart />
     </Card>
   );
 }

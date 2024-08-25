@@ -1,12 +1,12 @@
 import { getSubscriberEvents } from "@/modules/dashboard/actions";
 import { QueryClient, HydrationBoundary, dehydrate } from "@tanstack/react-query";
-import NewsletterEngagementOverviewWidget from "./components/NewsletterEngagementOverviewWidget";
-import TopPerformingNewsletterEditionsWidget from "./components/TopPerformingNewsletterEditionsWidget";
+import DashboardWidgets from "./components/DashboardWidgets";
 
 export default async function Home() {
   const today = new Date();
   const last30DaysFromNow = new Date(today);
   last30DaysFromNow.setDate(today.getDate() - 30);
+
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery({
     queryKey: ["subscriberEvents", { dateStart: last30DaysFromNow, dateEnd: today }],
@@ -16,8 +16,7 @@ export default async function Home() {
   return (
     <main>
       <HydrationBoundary state={dehydrate(queryClient)}>
-        <NewsletterEngagementOverviewWidget defaultDateRange={[last30DaysFromNow, today]} />
-        <TopPerformingNewsletterEditionsWidget defaultDateRange={[last30DaysFromNow, today]} />
+        <DashboardWidgets startDate={last30DaysFromNow} endDate={today} />
       </HydrationBoundary>
     </main>
   );

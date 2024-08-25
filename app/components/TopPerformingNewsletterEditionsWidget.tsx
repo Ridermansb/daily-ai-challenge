@@ -3,11 +3,11 @@
 import TopPerformingNewsletterEditionsTable from "@/modules/dashboard/components/TopPerformingNewsletterEditionsTable";
 import { Card, Title } from "@mantine/core";
 
-function TopPerformingNewsletterEditionsWidget({ defaultDateRange }: { defaultDateRange: [Date, Date] }) {
+function TopPerformingNewsletterEditionsWidget() {
   return (
-    <Card withBorder p="md" m="md">
+    <Card withBorder>
       <Title order={3}>Top performing newsletter editions</Title>
-      <TopPerformingNewsletterEditionsTable defaultDateRange={defaultDateRange} />
+      <TopPerformingNewsletterEditionsTable />
     </Card>
   );
 }
