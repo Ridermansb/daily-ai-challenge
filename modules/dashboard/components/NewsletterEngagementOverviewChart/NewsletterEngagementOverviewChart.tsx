@@ -1,9 +1,8 @@
-import { AreaChart } from "@mantine/charts";
-import { useQuery } from "@tanstack/react-query";
+import { AreaChart, AreaChartSeries } from "@mantine/charts";
 import { Text, Loader, Stack, Group } from "@mantine/core";
-import { fetchSubscriberEvents } from "../../api";
 import { useState } from "react";
 import { DatePickerInput, DatesRangeValue } from "@mantine/dates";
+import { useGetSubscriberEvents } from "../../hooks";
 
 type TAggregateSubscriberEvent = {
   createdAt: string;
@@ -49,26 +48,25 @@ function aggregateSubscriberEvents(subscriberEvents: TSubscriberEvent[]) {
   return aggregated;
 }
 
-function useGetSubscriberEvents(dateRangeValue: [Date | null, Date | null]) {
-  const [dateStart, dateEnd] = dateRangeValue;
-  return useQuery<TSubscriberEvent[], Error, TAggregateSubscriberEvent[]>({
-    enabled: dateRangeValue[0] !== null && dateRangeValue[1] !== null,
-    queryKey: ["subscriberEvents", { dateStart, dateEnd }],
-    queryFn() {
-      if (!dateStart || !dateEnd) {
-        throw new Error("Invalid date range");
-      }
-      return fetchSubscriberEvents([dateStart, dateEnd]);
-    },
-    select(data) {
-      return aggregateSubscriberEvents(data);
-    },
-  });
-}
+const series: AreaChartSeries[] = [
+  { name: "delivered", label: "Delivered", color: "blue.4" },
+  { name: "opens", label: "Opens", color: "teal.3" },
+  { name: "clicks", label: "Clicks", color: "green.8" },
+  { name: "unsubscribes", label: "Unsubscribes", color: "red.8" },
+  { name: "openRate", label: "Open Rate", color: "blue.6" },
+  { name: "clickThroughRate", label: "Click Through Rate", color: "indigo.8" },
+];
 
 const NewsletterEngagementOverviewChart = ({ defaultDateRange }: { defaultDateRange: [Date, Date] }) => {
   const [dateRangeValue, setDateRange] = useState<DatesRangeValue>(defaultDateRange);
-  const { data: subscriberEvents, isLoading } = useGetSubscriberEvents([dateRangeValue[0], dateRangeValue[1]]);
+  const { data: subscriberEvents, isLoading } = useGetSubscriberEvents<TAggregateSubscriberEvent>(
+    [dateRangeValue[0], dateRangeValue[1]],
+    {
+      select(data) {
+        return aggregateSubscriberEvents(data);
+      },
+    },
+  );
 
   if (isLoading) {
     return <Loader color="blue" size="sm" type="bars" />;
@@ -92,17 +90,9 @@ const NewsletterEngagementOverviewChart = ({ defaultDateRange }: { defaultDateRa
           withLegend
           data={subscriberEvents}
           dataKey="createdAt"
-          series={[
-            { name: "delivered", label: "Delivered", color: "blue.4" },
-            { name: "opens", label: "Opens", color: "teal.3" },
-            { name: "clicks", label: "Clicks", color: "green.8" },
-            { name: "unsubscribes", label: "Unsubscribes", color: "red.8" },
-            { name: "openRate", label: "Open Rate", color: "blue.6" },
-            { name: "clickThroughRate", label: "Click Through Rate", color: "indigo.8" },
-          ]}
+          series={series}
           yAxisLabel="Amount"
           curveType="step"
-          connectNulls
         />
       ) : (
         <Text c="dimmed">No Data Found</Text>

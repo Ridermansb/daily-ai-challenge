@@ -24,6 +24,7 @@ export function transform({ createdAt, ...rest }: TSubscriberEventDatabase): TSu
  * @returns Subscriber events data
  */
 export function fetchSubscriberEvents(dateRangeValue: [Date, Date]): Promise<TSubscriberEvent[]> {
+  console.log("fetchSubscriberEvents()...", dateRangeValue);
   return fetch(SUBSCRIBER_EVENTS_URL)
     .then((res) => res.json())
     .then((data: TSubscriberEventDatabase[]) => data.map<TSubscriberEvent>((event) => transform(event)))
