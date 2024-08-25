@@ -5,12 +5,34 @@
   "type": "module",
   "description": "Subscriber Analytics Dashboard",
   "scripts": {
-    "dev": "next dev",
+    "json-server": "wireit",
+    "dev": "wireit",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
     "type-check": "tsc --noEmit",
     "prepare": "husky"
+  },
+  "wireit": {
+    "dev": {
+      "command": "next dev",
+      "service": {
+        "readyWhen": {
+          "lineMatches": " Ready in"
+        }
+      },
+      "dependencies": [
+        "json-server"
+      ]
+    },
+    "json-server": {
+      "command": "json-server --watch db.json --port 3001",
+      "service": {
+        "readyWhen": {
+          "lineMatches": "JSON Server started on PORT :3001"
+        }
+      }
+    }
   },
   "dependencies": {
     "@mantine/charts": "^7.12.1",
@@ -33,12 +55,14 @@
     "eslint-config-prettier": "^9.1.0",
     "eslint-import-resolver-typescript": "^3.6.1",
     "eslint-plugin-prettier": "^5.2.1",
+    "json-server": "^1.0.0-beta.2",
     "lint-staged": "^15.2.9",
     "postcss": "^8.4.41",
     "postcss-preset-mantine": "^1.17.0",
     "postcss-simple-vars": "^7.0.1",
     "prettier": "^3.3.3",
-    "typescript": "^5"
+    "typescript": "^5",
+    "wireit": "^0.14.8"
   },
   "author": "Riderman de Sousa Barbosa <ridermansb+sitehistory@gmail.com>",
   "contributors": [

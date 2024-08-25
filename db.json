@@ -1,0 +1,16 @@
+{
+  "subscriberEvents": [
+    {
+      "name": "Campaign 1",
+      "date": "2021-01-01T10:00:00",
+      "type": "open",
+      "email": "ridermansb+user1@gmail.com"
+    },
+    {
+      "name": "Campaign 1",
+      "date": "2021-01-01T10:10:00",
+      "type": "click",
+      "email": "ridermansb+user1@gmail.com"
+    }
+  ]
+}
