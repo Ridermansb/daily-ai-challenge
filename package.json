@@ -11,7 +11,7 @@
     "start": "next start",
     "lint": "next lint",
     "type-check": "tsc --noEmit",
-    "prepare": "husky"
+    "prepare": "husky install"
   },
   "wireit": {
     "dev": {
@@ -61,6 +61,7 @@
     "eslint-config-prettier": "^9.1.0",
     "eslint-import-resolver-typescript": "^3.6.1",
     "eslint-plugin-prettier": "^5.2.1",
+    "husky": "^9.1.5",
     "json-server": "^1.0.0-beta.2",
     "lint-staged": "^15.2.9",
     "postcss": "^8.4.41",
