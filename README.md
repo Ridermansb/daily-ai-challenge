@@ -1,3 +1,5 @@
+[![Update Codecov](https://github.com/Ridermansb/daily-ai-challenge/actions/workflows/codecov.yml/badge.svg)](https://github.com/Ridermansb/daily-ai-challenge/actions/workflows/codecov.yml)
+
 > Resolution for daily.ai [code challenge][0]
 
 This project is hosted on [vercel][vercel-project].
