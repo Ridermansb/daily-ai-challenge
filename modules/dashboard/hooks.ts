@@ -13,6 +13,7 @@ export function useGetSubscriberEvents<TAggregator>(options: TUseQueryOptions<TA
   const dateRangeValue = useStore((state) => state.dateRange);
 
   const [dateStart, dateEnd] = dateRangeValue;
+
   return useQuery<TSubscriberEvent[], Error, TAggregator[]>({
     enabled: !!dateRangeValue[0] && !!dateRangeValue[1],
     queryKey: ["subscriberEvents", { dateStart, dateEnd }],
