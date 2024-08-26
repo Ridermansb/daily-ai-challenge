@@ -1,4 +1,5 @@
 [![Update Codecov](https://github.com/Ridermansb/daily-ai-challenge/actions/workflows/codecov.yml/badge.svg)](https://github.com/Ridermansb/daily-ai-challenge/actions/workflows/codecov.yml)
+[![codecov](https://codecov.io/github/Ridermansb/daily-ai-challenge/graph/badge.svg?token=0nHnoLajGS)](https://codecov.io/github/Ridermansb/daily-ai-challenge)
 
 > Resolution for daily.ai [code challenge][0]
 

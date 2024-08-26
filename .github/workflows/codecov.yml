@@ -5,7 +5,7 @@ env:
 on: [push, pull_request]
 
 jobs:
-  Deploy-Production:
+  tests:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
