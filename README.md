@@ -7,7 +7,15 @@ This project is hosted on [vercel][vercel-project].
 - Ensure you have **node 20** (can be installed via [nvm][nvm-website])
 - Install packages `npm install`
 
-Run the development server:
+- Create `.env` file with
+
+```
+NEXT_PUBLIC_API_URL=http://localhost:3001
+```
+
+> This is the `json-server` URL
+
+- Run the development server:
 
 ```bash
 npm run dev
