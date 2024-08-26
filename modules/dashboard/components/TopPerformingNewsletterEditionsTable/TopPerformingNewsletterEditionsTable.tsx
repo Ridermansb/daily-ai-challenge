@@ -52,7 +52,11 @@ const TopPerformingNewsletterRow = ({ aggregatedEvent }: { aggregatedEvent: TAgg
 );
 
 const TopPerformingNewsletterEditionsTable = () => {
-  const { data: subscriberEvents, isLoading } = useGetSubscriberEvents<TAggregateSubscriberEvent>({
+  const {
+    data: subscriberEvents,
+    isLoading,
+    error,
+  } = useGetSubscriberEvents<TAggregateSubscriberEvent>({
     select(data) {
       return aggregateSubscriberEvents(data);
     },
@@ -60,6 +64,9 @@ const TopPerformingNewsletterEditionsTable = () => {
 
   if (isLoading) {
     return <Loader color="blue" size="sm" type="bars" />;
+  }
+  if (error) {
+    return <Text c="red">Error fetching data</Text>;
   }
 
   return subscriberEvents ? (

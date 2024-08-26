@@ -56,7 +56,11 @@ const series: AreaChartSeries[] = [
 ];
 
 const NewsletterEngagementOverviewChart = () => {
-  const { data: subscriberEvents, isLoading } = useGetSubscriberEvents<TAggregateSubscriberEvent>({
+  const {
+    data: subscriberEvents,
+    isLoading,
+    error,
+  } = useGetSubscriberEvents<TAggregateSubscriberEvent>({
     select(data) {
       return aggregateSubscriberEvents(data);
     },
@@ -64,6 +68,9 @@ const NewsletterEngagementOverviewChart = () => {
 
   if (isLoading) {
     return <Loader color="blue" size="sm" type="bars" />;
+  }
+  if (error) {
+    return <Text c="red">Error fetching data</Text>;
   }
 
   return subscriberEvents ? (
