@@ -1,22 +1,27 @@
 "use client";
 
-import useStore, { setDateRange } from "../store";
 import { useEffect } from "react";
+import { Group, Stack, Text } from "@mantine/core";
+import { DatePickerInput } from "@mantine/dates";
 import NewsletterEngagementOverviewWidget from "./NewsletterEngagementOverviewWidget";
 import TopPerformingNewsletterEditionsWidget from "./TopPerformingNewsletterEditionsWidget";
-import { Group, Stack } from "@mantine/core";
-import { DatePickerInput } from "@mantine/dates";
+import useStore, { setDateRange } from "../store";
+import { getQueryClient } from "../utils";
+import ThemeSwitch from "./ThemeSwitch";
 
-const DashboardWidgets = ({ startDate, endDate }: { startDate: Date; endDate: Date }) => {
+const DashboardWidgets = ({ dateStart, dateEnd }: { dateStart: Date; dateEnd: Date }) => {
   const dateRangeValue = useStore((state) => state.dateRange);
 
+  const queryClient = getQueryClient();
+  const queryState = queryClient.getQueryState(["subscriberEvents", { dateStart, dateEnd }]);
+
   useEffect(() => {
-    setDateRange([startDate, endDate]);
-  }, [endDate, startDate]);
+    setDateRange([dateStart, dateEnd]);
+  }, [dateEnd, dateStart]);
 
   return (
     <Stack gap="md" p="md" align="stretch">
-      <Group align="flex-end">
+      <Group align="center" justify="space-between">
         <DatePickerInput
           type="range"
           label="Filter by date"
@@ -25,7 +30,9 @@ const DashboardWidgets = ({ startDate, endDate }: { startDate: Date; endDate: Da
           onChange={setDateRange}
           maxDate={new Date()}
         />
+        <ThemeSwitch />
       </Group>
+      {queryState?.error && <Text c="red">Error fetching data</Text>}
       <NewsletterEngagementOverviewWidget />
       <TopPerformingNewsletterEditionsWidget />
     </Stack>

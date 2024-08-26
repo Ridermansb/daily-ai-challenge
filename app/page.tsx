@@ -17,7 +17,7 @@ export default async function Home() {
   return (
     <main>
       <HydrationBoundary state={dehydrate(queryClient)}>
-        <DashboardWidgets startDate={last30DaysFromNow} endDate={today} />
+        <DashboardWidgets dateStart={last30DaysFromNow} dateEnd={today} />
       </HydrationBoundary>
     </main>
   );

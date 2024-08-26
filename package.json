@@ -40,6 +40,8 @@
     "@mantine/dates": "^7.12.1",
     "@mantine/hooks": "^7.12.1",
     "@mantine/notifications": "^7.12.1",
+    "@tabler/core": "^1.0.0-beta20",
+    "@tabler/icons-react": "^3.12.0",
     "@tanstack/react-query": "^5.52.1",
     "@tanstack/react-query-devtools": "^5.52.1",
     "dayjs": "^1.11.13",
