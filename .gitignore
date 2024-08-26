@@ -381,3 +381,4 @@ tags
 # End of https://www.toptal.com/developers/gitignore/api/react,nextjs,node,osx,vim,intellij+all,visualstudiocode
 
 .wireit/
+junit.xml

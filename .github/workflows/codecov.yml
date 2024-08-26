@@ -1,0 +1,30 @@
+name: Update Codecov
+env:
+  CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+
+on: [push, pull_request]
+
+jobs:
+  Deploy-Production:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          cache: "npm"
+          node-version-file: ".nvmrc"
+
+      - run: npm ci
+
+      - run: npm run test:coverage
+
+      - name: Upload results to Codecov
+        if: ${{ !cancelled() }}
+        uses: codecov/codecov-action@v4
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+      - name: Upload test results to Codecov
+        if: ${{ !cancelled() }}
+        uses: codecov/test-results-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}

@@ -17,6 +17,7 @@ const config: Config = {
   coverageProvider: "v8",
   testEnvironment: "jsdom",
   setupFilesAfterEnv: ["<rootDir>/setup-jest.js"],
+  coveragePathIgnorePatterns: ["/node_modules/", "test-utils.tsx"],
 };
 
 module.exports = createJestConfig(config);
